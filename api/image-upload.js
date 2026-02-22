@@ -12,7 +12,8 @@ export const config = {
   },
 }
 
-const BACKEND_URL = 'http://13.200.178.118:8008/query-image-upload'
+const BACKEND_URL = process.env.VITE_IMAGE_BACKEND_URL || 'http://13.200.178.118:8008'
+const FULL_ENDPOINT = `${BACKEND_URL}/query-image-upload`
 
 export default async function handler(req, res) {
   // Enable CORS
@@ -34,7 +35,7 @@ export default async function handler(req, res) {
 
   try {
     const topK = req.query.top_k || '5'
-    const backendUrl = `${BACKEND_URL}?top_k=${topK}`
+    const backendUrl = `${FULL_ENDPOINT}?top_k=${topK}`
 
     console.log('[Proxy] Proxying request to:', backendUrl)
     console.log('[Proxy] Query params:', req.query)

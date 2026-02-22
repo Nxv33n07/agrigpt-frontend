@@ -28,7 +28,8 @@ export default async function handler(req, res) {
         }
 
         // Optional: validation to only allow fetching from specific backend
-        if (!targetUrl.startsWith('http://13.200.178.118')) {
+        const PERMITTED_DOMAIN = process.env.VITE_IMAGE_BACKEND_URL || 'http://13.200.178.118'
+        if (!targetUrl.startsWith(PERMITTED_DOMAIN)) {
             return res.status(403).json({ error: 'URL domain not permitted' })
         }
 

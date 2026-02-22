@@ -6,9 +6,9 @@
 
 ### AI-Powered Agricultural Intelligence Platform
 
-[![React](https://img.shields.io/badge/React-19.2.0-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
-[![Vite](https://img.shields.io/badge/Vite-7.2.4-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4.18-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![React](https://img.shields.io/badge/React-18.2.0-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-5.0.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![CSS](https://img.shields.io/badge/Vanilla_CSS-Modern-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](docs/CONTRIBUTING.md)
 
@@ -20,7 +20,7 @@
 
 ## 📖 Overview
 
-**AgriGPT Frontend** is a modern, responsive web application that brings the power of artificial intelligence to agriculture. Built with React 19 and Vite, this platform provides farmers, agricultural consultants, and administrators with intelligent insights, real-time consultancy, and comprehensive management tools.
+**AgriGPT Frontend** is a modern, responsive web application that brings the power of artificial intelligence to agriculture. Built with React 18 and Vite, this platform provides farmers, agricultural consultants, and administrators with intelligent insights, real-time consultancy, and comprehensive management tools.
 
 Our mission is to democratize access to agricultural knowledge through cutting-edge AI technology, making expert agricultural guidance accessible to everyone, anywhere.
 
@@ -31,7 +31,7 @@ Our mission is to democratize access to agricultural knowledge through cutting-e
 - **🔐 Secure Authentication**: Role-based access control with protected routes
 - **📱 Responsive Design**: Seamless experience across all devices
 - **⚡ Lightning Fast**: Built with Vite for optimal performance
-- **🎨 Modern UI**: Beautiful, intuitive interface with TailwindCSS
+- **🎨 Modern UI**: Beautiful, intuitive interface with Vanilla CSS and modern design principles
 
 ---
 
@@ -83,12 +83,11 @@ Coming soon! We're preparing beautiful screenshots of the platform.
 
 ```mermaid
 graph TD
-    A[React 19.2.0] --> B[Vite 7.2.4]
-    B --> C[TailwindCSS 3.4.18]
-    A --> D[React Router DOM 7.10.1]
-    A --> E[Axios 1.13.2]
-    A --> F[React Icons 5.5.0]
-    B --> G[ESLint 9.39.1]
+    A[React 18.2.0] --> B[Vite 5.0.0]
+    B --> C[Vanilla CSS]
+    A --> D[Fetch API]
+    A --> E[React Transliterate]
+    B --> F[ESLint]
 
     style A fill:#61DAFB,stroke:#333,stroke-width:2px
     style B fill:#646CFF,stroke:#333,stroke-width:2px
@@ -99,14 +98,11 @@ graph TD
 
 | Category        | Technology       | Version | Purpose                                        |
 | --------------- | ---------------- | ------- | ---------------------------------------------- |
-| **Framework**   | React            | 19.2.0  | UI library for building interactive interfaces |
-| **Build Tool**  | Vite             | 7.2.4   | Fast development server and optimized builds   |
-| **Styling**     | TailwindCSS      | 3.4.18  | Utility-first CSS framework                    |
-| **Routing**     | React Router DOM | 7.10.1  | Client-side routing and navigation             |
-| **HTTP Client** | Axios            | 1.13.2  | Promise-based HTTP requests                    |
-| **Icons**       | React Icons      | 5.5.0   | Comprehensive icon library                     |
-| **Linting**     | ESLint           | 9.39.1  | Code quality and consistency                   |
-| **PostCSS**     | PostCSS          | 8.5.6   | CSS transformation and optimization            |
+| **Framework**   | React            | 18.2.0  | UI library for building interactive interfaces |
+| **Build Tool**  | Vite             | 5.0.0   | Fast development server and optimized builds   |
+| **Styling**     | Vanilla CSS      | -       | Custom styling with modern CSS variables       |
+| **Transliteration**| React Transliterate| 1.1.9| Multi-language input support                  |
+| **HTTP Client** | Fetch API        | Native  | Standard promise-based HTTP requests           |
 
 ### Architecture Overview
 
@@ -288,16 +284,13 @@ npm run lint
 
 ### API Integration
 
-The application communicates with the backend API through the Axios client configured in `src/services/api.js`:
+The application communicates with the backend API through the `src/services/api.js` using the standard Fetch API:
 
 ```javascript
-import api from "./services/api";
+import { sendTextQuery } from "./services/api";
 
-// Example: Fetch data
-const response = await api.get("/endpoint");
-
-// Example: Post data
-const result = await api.post("/endpoint", data);
+// Example: Send text query
+const result = await sendTextQuery(phoneNumber, "How to grow rice?", chatId, "en");
 ```
 
 ---
@@ -352,29 +345,22 @@ agrigpt-frontend/
 ├── 📁 public/                   # Static assets
 │   └── 🖼️ vite.svg              # Vite logo
 │
-└── 📁 src/                      # Source code
+├── 📁 src/                      # Source code
     ├── 📄 main.jsx              # Application entry point
     ├── 📄 App.jsx               # Main App component
-    ├── 📄 App.css               # App-level styles
-    ├── 📄 index.css             # Global styles + Tailwind
     │
-    ├── 📁 assets/               # Images, fonts, etc.
-    │   └── 🖼️ react.svg         # React logo
+    ├── 📁 components/           # Reusable components (Chat, Login, etc.)
     │
-    ├── 📁 components/           # Reusable components
-    │   ├── 📄 Navbar.jsx        # Navigation bar
-    │   └── 📄 ProtectedRoute.jsx # Route protection
+    ├── 📁 context/              # React Context (LanguageContext)
     │
-    ├── 📁 context/              # React Context
-    │   └── 📄 AuthContext.jsx   # Authentication context
+    ├── 📁 styles/               # CSS Stylesheets
+    │   ├── 📄 App.css           # Layout styles
+    │   └── 📄 index.css         # Global variables and colors
     │
-    ├── 📁 pages/                # Page components
-    │   ├── 📄 LoginPage.jsx     # Login page
-    │   ├── 📄 ConsultantPage.jsx # Consultant interface
-    │   └── 📄 AdminPage.jsx     # Admin dashboard
+    ├── 📁 hooks/                # Custom React hooks (useChat)
     │
-    └── 📁 services/             # API & utilities
-        └── 📄 api.js            # Axios API client
+    └── 📁 services/             # API integration
+        └── 📄 api.js            # Fetch-based API client
 ```
 
 ### Key Directories
